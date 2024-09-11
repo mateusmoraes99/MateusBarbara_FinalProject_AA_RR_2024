@@ -30,6 +30,14 @@ Agrupar fotos em diferentes categorias com base em características visuais seme
 ### Verificação e Ajustes:
   • Revise os agrupamentos e ajuste o número de clusters ou parâmetros do algoritmo,se necessário, para melhorar a precisão dos agrupamentos.
 
+## Atividades
+Banco de fotos
+Estrutura algoritmo k-Means
+Teste (benchmark)
+
+## Ferramentas:
+vs code 
+python
+
 dead line
-se necessário, para melhorar a precisão dos agrupamentos.
-se necessário, para melhorar a precisão dos agrupamentos.
+
