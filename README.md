@@ -29,13 +29,14 @@ Aplicação do Algoritmo de Clustering:
 • Escolha do Algoritmo: Utilize o K-Means ou DBSCAN do scikit-learn. O K-
 Means pode ser uma escolha simples para começar, onde você define o número de
 clusters com base em uma estimativa inicial.
-Universidade Federal de Roraima
-Departamento de Ciência da Computação
-Análise de Algoritmos – DCC606
+
 Análise e Organização:
 • Classificação: Use os rótulos gerados pelo clustering para organizar as imagens em
 pastas ou categorias. As imagens que compartilham o mesmo rótulo serão agrupadas
 na mesma categoria.
 Verificação e Ajustes:
-• Revise os agrupamentos e ajuste o número de clusters ou parâmetros do algoritmo,
+• Revise os agrupamentos e ajuste o número de clusters ou parâmetros do algoritmo,se necessário, para melhorar a precisão dos agrupamentos.
+
+dead line
+se necessário, para melhorar a precisão dos agrupamentos.
 se necessário, para melhorar a precisão dos agrupamentos.
