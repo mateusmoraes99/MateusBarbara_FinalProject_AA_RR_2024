@@ -48,6 +48,7 @@ Bibliotecas:
 - scikit-learn
 - pillow
 - matplotlib
+- scikit-image
 
 
 
