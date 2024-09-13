@@ -42,5 +42,12 @@ Teste (benchmark)
 - VsCode
 - Python
 
-dead line
+Bibliotecas:
+- numpy
+- opencv
+- scikit-learn
+- pillow
+- matplotlib
+
+
 
