@@ -11,7 +11,7 @@ from matplotlib import pyplot as plt
 def resize_image(image, size=(128, 128)):
     return cv2.resize(image, size)
 
-def extract_dominant_colors(image, k=3):
+def extract_dominant_colors(image, k=5):
     # Convert image to RGB
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     pixels = image.reshape(-1, 3)
@@ -96,7 +96,7 @@ def load_images_and_extract_features(image_folder, output_folder):
     labels, cluster_centers = cluster_images(features_array, num_clusters=3)
 
     # Plot cluster distribution
-    plot_cluster_distribution(features_array, labels, 'cluster_distribution.png')
+    plot_cluster_distribution(features_array, labels, 'cluster_distribution_5.png')
 
     # Copy images to cluster folders
     copy_images_to_clusters(image_paths, labels, output_folder)
@@ -105,7 +105,7 @@ def load_images_and_extract_features(image_folder, output_folder):
 
 # Exemplo: Pasta onde suas imagens estão e onde salvar as saídas
 image_folder = 'imagens/todas_imagens'
-output_folder = 'clusterização_resultados'
+output_folder = 'clusterizacao_resultados'
 if not os.path.exists(output_folder):
     os.makedirs(output_folder)
 

@@ -2,7 +2,7 @@ import os
 import matplotlib.pyplot as plt
 
 # Caminho do diretório principal
-diretorio_principal = 'imagens/clusterizacao_resultados'
+diretorio_principal = 'clusterizacao_resultados'
 
 # Extensões comuns de imagens
 extensoes_imagens = ('.jpg', '.jpeg', '.png', '.webp')
@@ -66,5 +66,5 @@ ax.legend()
 plt.tight_layout()
 
 # Salvar o gráfico como imagem
-plt.savefig('contagem_arquivos_clusterizacao.png')
+plt.savefig('contagem_arquivos_clusterizacao_5.png')
 
