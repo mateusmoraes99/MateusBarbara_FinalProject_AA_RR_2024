@@ -35,6 +35,9 @@ Agrupar fotos em diferentes categorias com base em características visuais seme
   - Estrutura algoritmo k-Means
   - Ler o artigo
 
+- De 14/09 a 18/09:
+  - Implementar codigo
+
 Teste (benchmark)
 
 ## Ferramentas:
