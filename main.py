@@ -105,7 +105,7 @@ def load_images_and_extract_features(image_folder, output_folder):
 
 # Exemplo: Pasta onde suas imagens estão e onde salvar as saídas
 image_folder = 'imagens/todas_imagens'
-output_folder = 'imagens/clusterização_resultados'
+output_folder = 'clusterização_resultados'
 if not os.path.exists(output_folder):
     os.makedirs(output_folder)
 
