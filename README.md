@@ -53,5 +53,15 @@ Bibliotecas:
 - matplotlib
 - scikit-image
 
+## Testes realizados
 
+- 1: Dominant_colors = 3; Histogram bins=16; HOG norm=L2-Hys
+
+- 2: Dominant_colors = 5; Histogram bins=32; HOG norm=L1
+
+- 3: Dominant_colors = 3; Histogram bins=16; HOG norm=L1
+
+- 4: Dominant_colors = 3; Histogram bins=32; HOG norm=L2-Hys
+
+- 5: Dominant_colors = 5; Histogram bins=16; HOG norm=L2-Hys
 
