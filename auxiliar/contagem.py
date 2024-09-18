@@ -66,5 +66,5 @@ ax.legend()
 plt.tight_layout()
 
 # Salvar o gráfico como imagem
-plt.savefig('contagem_arquivos_clusterizacao_5.png')
+plt.savefig('testes/contagem_arquivos_clusterizacao_cpp_img210.png')
 
