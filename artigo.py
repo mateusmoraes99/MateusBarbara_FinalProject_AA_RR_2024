@@ -1,3 +1,6 @@
+# Tentativa de aplicar o que foi exposto no artigo de referencia, porém sem sucesso
+
+
 import cv2
 import numpy as np
 import os
