@@ -97,7 +97,7 @@ Segunda parte:
     }
 ```
 
-> A complexidade total da segunda parte é O(N x H x W X F)
+> A complexidade total da segunda parte é O(N x H x W + N x F) = O(N x (H x W + F))
 
 - Terceira parte : Ao fim do loop para extrair redimensionar e extrair caracteristicas de todas as imagens, é formado a Matriz de Features. O(N x F).
 
@@ -112,7 +112,7 @@ Segunda parte:
 > A complexidade total da terceira parte é O(N x F)
 
 - Quarta parte: **Clusterização (D)**
-A clusterização é calculada em cima do numero de imagens (N), o numero de features (F) e o número de clusters (k). Como k é um valor constante (k=3), a complexidada da clusterização é **O(NxF).**
+A clusterização é calculada em cima do numero de imagens (N), o numero de features (F) e o número de clusters (k). Como k é um valor constante (k=3), a complexidada da clusterização se reduz a **O(NxF).**
 
 ```
     auto [labels, cluster_centers] = cluster_images(features_array, 3);
@@ -159,16 +159,18 @@ A clusterização é calculada em cima do numero de imagens (N), o numero de fea
 A complexidade total do algoritmo é dada, portante a partir da soma das complexidades de cada parte.
 
 - Primeira: O(1)
-- Segunda: O(N x H x W X F)
+- Segunda: O(N x H x W + N x F)
 - Terceira: O(N x F)
 - Quarta: O(N x F)
 - Quinta: O(N x H x W)
 
-**Complexidade total: O(N x H x W x F)**
+**Complexidade total: O( N ( H x W + F))**
 Onde:
 - N: quantidade de imagens
 - H x W: as dimensões das imagens
 - F: a quantidade de features extraida
+
+ Essa expressão reflete que o tempo de execução do algoritmo depende tanto do número de imagens quanto das dimensões das imagens e da quantidade de características extraídas.
 
 
 ### Detalhamento da análise das funções (A), (B), (C) e (D).
@@ -212,7 +214,8 @@ Essa função recebe as imagens já redimensionadas para o valor fixo de 128x128
 
         normalize(hist, hist, 0, 1, NORM_MINMAX, -1, Mat());
 
-> **Portanto a complexidade total da função (A) é constante: O(32³)**
+Como o termo dominante é O(H x W) = O(128 x 128), logo
+> **A complexidade total da função (A) é constante: O(128 x 128)**
 
 
 ##### (B) Função extract_dominant_colors()
@@ -258,3 +261,62 @@ Essa função recebe as imagens já redimensionadas para o valor fixo de 128x128
 > **Portanto a complexidade total da função (B) é constante: O(128x128x5)**
 
 ##### (C) Função extract_hog_features()
+
+- Essa função é calculada com base nas dimensões da imagens passada como entrada, como esse valor é fixo (128x128) o valor da complexidade dessa função também será constante.
+
+```
+vector<double> extract_hog_features(const Mat& image) {
+    Mat gray_image;
+    cvtColor(image, gray_image, COLOR_BGR2GRAY);
+
+    Size winSize(64, 128);  
+    Size blockSize(16, 16); 
+    Size blockStride(8, 8); 
+    Size cellSize(8, 8);    
+
+    HOGDescriptor hog(winSize, blockSize, blockStride, cellSize, 9, 1, -1, HOGDescriptor::L2Hys, 0.2);
+
+    vector<float> descriptors;
+    hog.compute(gray_image, descriptors, Size(8, 8), Size(0, 0));
+
+    return vector<double>(descriptors.begin(), descriptors.end());
+}
+```
+> **Portanto a complexidade total da função (C) é constante O(128x128)**
+
+##### (D) Clusterizacao
+
+Essa função recebe as imagens já redimensionadas para o valor fixo de 128x128.
+
+- A chamada da função `cvtColor` converte a imagem para HSV, isso é feito analisando para pixel da imagem, o que é uma operação constante. O(128x128)
+
+```
+pair<vector<int>, Mat> cluster_images(const Mat& features, int num_clusters = 3) {
+    Mat features_32f;
+    features.convertTo(features_32f, CV_32F);
+```
+
+- Ocorre então a normalização das caracteristicas, que é feita iterando sobre os elementos da matriz. Como a matriz tem as dimensões associadas a quantidade de imagens e de features, O(N x F)
+
+```
+Mat normalized_features = normalize_features(features_32f);
+```
+
+- É aplicado o K-means para clusterizar as imagens com base em suas features. A complexidade do k-means depende do número de imagens (N), quantidade de caracteristicas por imagens (F), número de cluster (k=3) e o número de iterações (T) que é limitado a T<=100.
+- Portanto a complexidade do k-means é O(NxF), já que k é constante e T é limitado a 100.
+
+```
+    Mat labels, centers;
+    kmeans(normalized_features, num_clusters, labels, TermCriteria(TermCriteria::EPS + TermCriteria::COUNT, 100, 0.2), 3, KMEANS_PP_CENTERS, centers);
+```
+
+- Por fim a matriz de labels é convertida para um vetor, que varia em relação a quantidade de imagens N. Portanto O(N).
+
+```
+    vector<int> labels_vec;
+    labels_vec.assign((int*)labels.datastart, (int*)labels.dataend);
+
+    return { labels_vec, centers };
+```
+
+> **Portanto a complexidade total da função (D) dada por O(NxF)**
