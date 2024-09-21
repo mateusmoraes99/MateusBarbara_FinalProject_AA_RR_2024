@@ -17,6 +17,8 @@ Repositório para o trabalho final da disciplina de Análise de Algoritmos. Trab
   - Renomeação e padronização das imagens (renomear_imagens.py)
   - Contagem e análise dos resultados (contagem.py)
 - Testes e seus resultados (/testes)
+- Criação do relatório (/Relatório)
+- Criação do slide de apresentação (apresentacao.pwp)
 
 ### Atividades:
 
@@ -27,8 +29,6 @@ Repositório para o trabalho final da disciplina de Análise de Algoritmos. Trab
 
 - De 14/09 a 18/09:
   - Implementar codigo
-
-Teste (benchmark)
 
 ## Testes realizados
 
