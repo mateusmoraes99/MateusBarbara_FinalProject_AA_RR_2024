@@ -18,7 +18,7 @@ using namespace Eigen;
 namespace fs = std::filesystem;
 
 // Função para extrair histogramas de cores
-vector<double> extract_color_histogram(const Mat& image, int bins = 32) {  // Aumente o número de bins para uma melhor resolução
+vector<double> extract_color_histogram(const Mat& image, int bins = 32) {  
     Mat hsv_image;
     cvtColor(image, hsv_image, COLOR_BGR2HSV);
 
@@ -47,7 +47,8 @@ vector<double> extract_dominant_colors(const Mat& image, int k = 5) {  // Aument
 
     // Aplicando K-means para encontrar as cores dominantes
     Mat labels, centers;
-    kmeans(pixels, k, labels, TermCriteria(TermCriteria::EPS + TermCriteria::COUNT, 100, 0.2), 3, KMEANS_PP_CENTERS, centers);
+    kmeans(pixels, k, labels, TermCriteria(TermCriteria::EPS 
+    + TermCriteria::COUNT, 100, 0.2), 3, KMEANS_PP_CENTERS, centers);
 
     // Extraindo as cores dominantes
     vector<double> dominant_colors;
