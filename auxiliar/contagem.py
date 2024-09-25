@@ -12,8 +12,14 @@ subdiretorios = []
 contagens_a = []
 contagens_c = []
 contagens_f = []
+contagens_erradas_a = []  # Para contar imagens erradas de aniversário
+contagens_erradas_c = []  # Para contar imagens erradas de casamento
+contagens_erradas_f = []  # Para contar imagens erradas de formatura
 
-# Percorrer os subdiretórios dentro de 'clusterizacao_resultado'
+# Conjunto para rastrear categorias predominantes
+categorias_predominantes = set()
+
+# Percorrer os subdiretórios dentro de 'clusterizacao_resultados'
 for subdiretorio in os.listdir(diretorio_principal):
     caminho_subdiretorio = os.path.join(diretorio_principal, subdiretorio)
     
@@ -42,7 +48,50 @@ for subdiretorio in os.listdir(diretorio_principal):
         contagens_c.append(contagem_c)
         contagens_f.append(contagem_f)
 
-# Gerar o gráfico de barras
+        # Exibir a quantidade de imagens de cada categoria no terminal
+        print(f"Cluster: {subdiretorio} - Aniversário: {contagem_a}, Casamento: {contagem_c}, Formatura: {contagem_f}")
+
+        # Determinar a categoria predominante
+        total = contagem_a + contagem_c + contagem_f
+        if total > 0:
+            # Encontrar as categorias com a maior contagem
+            max_count = max(contagem_a, contagem_c, contagem_f)
+            candidatas = []
+            if contagem_a == max_count:
+                candidatas.append('a')
+            if contagem_c == max_count:
+                candidatas.append('c')
+            if contagem_f == max_count:
+                candidatas.append('f')
+
+            # Resolver empates considerando categorias que não foram predominantes
+            predominante = None
+            for candidata in candidatas:
+                if candidata not in categorias_predominantes:
+                    predominante = candidata
+                    break
+            
+            # Se não houver categorias não utilizadas, usar a primeira do empate
+            if predominante is None and candidatas:
+                predominante = candidatas[0]
+
+            # Adicionar a categoria predominante ao conjunto
+            categorias_predominantes.add(predominante)
+
+            # Calcular quantas imagens estão no cluster errado
+            erradas_a = contagem_a if predominante != 'a' else 0
+            erradas_c = contagem_c if predominante != 'c' else 0
+            erradas_f = contagem_f if predominante != 'f' else 0
+
+            contagens_erradas_a.append(erradas_a)
+            contagens_erradas_c.append(erradas_c)
+            contagens_erradas_f.append(erradas_f)
+        else:
+            contagens_erradas_a.append(0)
+            contagens_erradas_c.append(0)
+            contagens_erradas_f.append(0)
+
+# Gerar o gráfico de barras para a contagem de imagens
 fig, ax = plt.subplots(figsize=(10, 6))
 largura_barra = 0.2
 indice_barras = range(len(subdiretorios))
@@ -66,5 +115,27 @@ ax.legend()
 plt.tight_layout()
 
 # Salvar o gráfico como imagem
-plt.savefig('testes/contagem_arquivos_clusterizacao_cpp_img210.png')
+plt.savefig('contagem_arquivos_clusterizacao.png')
 
+# Gerar gráfico de pizza para mostrar erros em porcentagem
+fig2, axs = plt.subplots(1, len(subdiretorios), figsize=(15, 5), sharey=True)
+
+for i, subdiretorio in enumerate(subdiretorios):
+    erros = [contagens_erradas_a[i], contagens_erradas_c[i], contagens_erradas_f[i]]
+    labels = ['Aniversário Erradas', 'Casamento Erradas', 'Formatura Erradas']
+    
+    # Apenas plotar se houver erros
+    if sum(erros) > 0:
+        axs[i].pie(erros, labels=labels, autopct='%1.1f%%', startangle=90, colors=['lightblue', 'lightgreen', 'lightcoral'])
+        axs[i].axis('equal')  # Igualar o aspecto do gráfico para um círculo
+        axs[i].set_title(f'Erros em {subdiretorio}')
+    else:
+        axs[i].pie([1], labels=['Sem Erros'], colors=['lightgray'])  # Gráfico de pizza vazio
+        axs[i].set_title(f'Erros em {subdiretorio}')
+        
+# Ajustar layout
+plt.tight_layout()
+
+# Salvar todos os gráficos de pizza em uma única imagem
+plt.savefig('imagens_erradas_por_categoria.png')
+plt.show()  # Mostrar todos os gráficos

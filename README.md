@@ -19,6 +19,9 @@ Repositório para o trabalho final da disciplina de Análise de Algoritmos. Trab
 - Testes e seus resultados (/testes)
 - Criação do relatório (/relatorio e slide/Organização Automatica de Fotografias de Eventos.docx|odt|pdf)
 - Criação do slide de apresentação (/relatorio e slide/apresentacao.pptx)
+- Taxa de erro solicitada no dia da apresentação 
+  - ![Resultado da Clusterização com 210 imagens](contagem_arquivos_clusterizacao_210imgs.png)
+  - ![Taxa de erro da Clusterização com 210 imagens](imagens_erradas_por_categoria_210img.png)
 
 ### Atividades:
 
